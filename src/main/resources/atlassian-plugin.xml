@@ -1,0 +1,63 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+        <param name="plugin-icon">images/pluginIcon.png</param>
+        <param name="plugin-logo">images/pluginLogo.png</param>
+        <param name="configure.url">/plugins/lov-placeholder/settings.action</param>
+        <param name="atlassian-data-center-compatible">true</param>
+        <param name="atlassian-licensing-enabled">true</param>
+    </plugin-info>
+
+    <resource type="i18n" name="i18n" location="/i18n/placeholder"/>
+    <resource type="download" name="images/" location="/images"/>
+
+    <rest key="rest" path="/lov-resource" version="1.0" name="REST Resources"/>
+
+    <web-resource key="editor-placeholder-resources" name="editor-placeholder-resources">
+        <transformation extension="soy">
+            <transformer key="soyTransformer">
+                <functions>com.atlassian.confluence.plugins.soy:soy-core-functions</functions>
+            </transformer>
+        </transformation>
+        <transformation extension="js">
+            <transformer key="jsI18n"/>
+        </transformation>
+
+        <dependency>com.atlassian.auiplugin:dialog2</dependency>
+        <dependency>com.atlassian.auiplugin:aui-buttons</dependency>
+
+        <resource type="download" name="autocomplete.js"          location="/js/autocomplete.js"/>
+        <resource type="download" name="autocomplete.soy.js"      location="/templates/autocomplete.soy"/>
+
+        <resource type="download" name="extraplaceholders.js"     location="/js/placeholders.js"/>
+        <resource type="download" name="extraplaceholders.soy.js" location="/templates/placeholders.soy"/>
+
+        <context>editor</context>
+    </web-resource>
+
+    <web-resource key="config-resources" name="config-resources">
+        <transformation extension="js">
+            <transformer key="jsI18n"/>
+        </transformation>
+
+        <dependency>com.atlassian.auiplugin:aui-flag</dependency>
+
+        <resource type="download" name="config.css" location="/css/config.css"/>
+        <resource type="download" name="config.js"  location="/js/config.js"/>
+    </web-resource>
+
+    <ao key="ao-module" i18n-name-key="com.mesilat.lov-placeholder.ao">
+        <entity>com.mesilat.lov.ReferenceData</entity>
+    </ao>
+
+    <xwork key="actions" name="actions">
+        <package name="lov-placeholder" extends="default" namespace="/plugins/lov-placeholder">
+            <default-interceptor-ref name="defaultStack"/>
+            <action name="settings" class="com.mesilat.lov.SettingsAction">
+                <result name="success" type="velocity">/templates/lov-placeholder.vm</result>
+            </action>
+        </package>
+    </xwork>
+</atlassian-plugin>

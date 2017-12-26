@@ -1,0 +1,35 @@
+{namespace Mesilat.Templates.ListOfValues}
+
+/**
+ * Shows a select from list dialog
+ * @param title
+ * @param? text
+ */
+{template .selectValueDialog}
+    <section role="dialog" class="aui-layer aui-dialog2 aui-dialog2-medium lov-dialog" aria-hidden="true">
+        <header class="aui-dialog2-header">
+            <h2 class="aui-dialog2-header-main">{$title}</h2>
+            <div class="aui-dialog2-header-secondary">
+                <form class="aui" action="#">
+                    <input class="text lov-filter" type="search" name="search" tabindex="1" value="{$text}">
+                </form>
+            </div>
+            <a class="aui-dialog2-header-close">
+                <span class="aui-icon aui-icon-small aui-iconfont-close-dialog">Close</span>
+            </a>
+        </header>
+        <div class="aui-dialog2-content">
+            <nav class="aui-navgroup aui-navgroup-vertical">
+                <div class="aui-navgroup-inner">
+                    <ul class="aui-nav lov-list"></ul>
+                </div>
+            </nav>
+        </div>
+        <footer class="aui-dialog2-footer">
+            <div class="aui-dialog2-footer-actions">
+                <button id="dialog-close-button" class="aui-button lov-close">Close</button>
+            </div>
+            <div class="aui-dialog2-footer-hint">{getText('com.mesilat.lov-placeholder.dialog.hint')}</div>
+        </footer>
+    </section>
+{/template}
